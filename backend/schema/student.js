@@ -8,7 +8,8 @@ const schema = new mongoose.Schema({
     class_k:{
         type:mongoose.Schema.ObjectId,
         ref:'classRoom'
-    }
+    },
+    image: String,
 });
  
 

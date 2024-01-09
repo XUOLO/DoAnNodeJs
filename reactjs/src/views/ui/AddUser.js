@@ -11,8 +11,8 @@ import {
     Input,
     FormText,
   } from "reactstrap";
-  import React,{useEffect, useState} from 'react'
-  import { useNavigate } from 'react-router-dom';
+   import { useNavigate } from 'react-router-dom';
+  import React, { useState, useEffect } from 'react'
 
   const Forms = () => {
 

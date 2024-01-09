@@ -65,7 +65,10 @@ router.post('/add',validate.validator(),
       name: req.body.name,
       address: req.body.address,
       age: req.body.age,
-      class_k:req.body.class_k
+      image: req.body.image,
+      class_k:req.body.class_k,
+      
+
     })
     responseData.responseReturn(res, 200, true, newstudent);
   }

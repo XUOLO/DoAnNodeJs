@@ -59,7 +59,7 @@ router.get('/detailClass/:id', async function (req, res, next) {
   try {
      
 
-    const classRoom = await modelclassRoom.getOne(req.params.id).populate({path:'student',select:'_id name age address'});
+    const classRoom = await modelclassRoom.getOne(req.params.id).populate({path:'student',select:'_id name image age address'});
     // responseData.responseReturn(res, 200, true, classRoomAll);;
 
 

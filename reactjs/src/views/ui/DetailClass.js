@@ -4,8 +4,7 @@ import {useParams,Link} from 'react-router-dom'
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
    
 const ClassDetail = () => {
-    const [products, setProducts] = useState([]);
-    const [detailClass, setdetailClass] = useState([]);
+     const [detailClass, setdetailClass] = useState([]);
 
         const auth = localStorage.getItem('user')
         const userName = localStorage.getItem('userName')
@@ -61,7 +60,10 @@ const ClassDetail = () => {
         getProducts();
       }
   }
-
+  const convertBinaryToURL = (binaryData) => {
+    const base64String = binaryData.buffer.toString('base64');
+    return `data:image/png;base64,${base64String}`;
+  };
  const searchHandle = async (e)=>{
   let key = e.target.value
   if(key){
@@ -120,6 +122,7 @@ return (
             <tr>
               <th>No.</th>
               <th>Student name</th>
+              <th>Image</th>
 
               <th>Age</th>
               <th>Address</th>
@@ -141,7 +144,8 @@ return (
                   </div>
                 </td>
                 <td>{item.name}</td>
-                <td>
+                <td>       <img src="https://images.freeimages.com/fic/images/icons/977/rrze/720/user_student.png?fmt=webp&w=500"    width="50" className="rounded-circle" />   </td>
+                <td> 
                 {item.age}
                 </td>
                 <td>

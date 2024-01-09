@@ -8,8 +8,8 @@ module.exports = {
     checkLogin:
         async function (req) {
             var result = {}
-            // var token = req.headers['authorization'];
-            var token = req.headers.authorization;
+            var token = req.headers['authorization'];
+            // var token = req.headers.authorization;
             if (!token) {
                 return result.err = "Vui long dang nhap";
             }

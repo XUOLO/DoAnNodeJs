@@ -3,11 +3,11 @@ const message = require('../helper/message');
 
 const options = {
   name: {
-    min: 7,
+    min: 3,
     max: 15
   },
   address: {
-    min: 7,
+    min: 3,
     max: 200
   }
 };
@@ -34,7 +34,9 @@ module.exports = {
         .notEmpty()
         .withMessage('Tuổi không được để trống')
         .isNumeric()
-        .withMessage('Tuổi phải là một số')
+        .withMessage('Tuổi phải là một số'),
+ 
+
     ];
   }
 };
