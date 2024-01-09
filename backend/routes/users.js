@@ -23,11 +23,17 @@ router.get('/', async function (req, res, next) {
   console.log(req.query);
   var usersAll = await modelUser.getall(req.query);
   responseData.responseReturn(res, 200, true, usersAll);
-  // modelUser.find()
-  // .then(users=res.json(users))
-  // .catch(err=>err.json(err))
+ 
 
 });
+router.get('/teacherList', async function (req, res, next) {
+  console.log(req.query);
+  var usersAll = await Schemauser.find({role:"user"});
+  responseData.responseReturn(res, 200, true, usersAll);
+ 
+
+});
+
 router.get('/:id', async function (req, res, next) {// get by ID
   try {
     var user = await modelUser.getOne(req.params.id);
@@ -83,6 +89,21 @@ router.get('/search/:key', async (req, res) => {
       $or: [
         { userName: { $regex: searchKey, $options: 'i' } },
         { role: { $regex: searchKey, $options: 'i' } }
+      ]
+    });
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+router.get('/searchUsers/:key', async (req, res) => {
+  try {
+    const searchKey = req.params.key;
+    const result = await Schemauser.find({role:"user",
+      $or: [
+        { name: { $regex: searchKey, $options: 'i' } },
+        { email: { $regex: searchKey, $options: 'i' } }
       ]
     });
     res.send(result);

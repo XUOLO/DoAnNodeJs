@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect } from 'react'
 import {useParams,Link} from 'react-router-dom'
-import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
+import { Card, CardBody, CardTitle, Table } from "reactstrap";
    
 const ClassDetail = () => {
      const [detailClass, setdetailClass] = useState([]);

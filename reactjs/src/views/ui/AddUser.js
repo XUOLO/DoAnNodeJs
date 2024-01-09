@@ -133,7 +133,7 @@ import {
   </div>
   <select className="custom-select" id="inputGroupSelect01"value={role} onChange={(e) => setRole(e.target.value)}>
     <option  >--Select ROLE--</option>
-    <option value="User">User</option>
+    <option value="user">User</option>
     <option value="admin">Admin</option>
     <option  value="publisher">Publisher</option>
   </select>

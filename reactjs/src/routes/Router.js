@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
- 
+  
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
@@ -19,6 +19,7 @@ const UpdateUser = lazy(() => import("../views/ui/UpdateUser"));
 const UpdateStudent = lazy(() => import("../views/ui/UpdateStudent"));
 const UpdateClass = lazy(() => import("../views/ui/UpdateClass"));
 const ClassDetail = lazy(() => import("../views/ui/DetailClass"));
+const TeacherList = lazy(() => import("../views/ui/TeacherList"));
 
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 
@@ -49,6 +50,7 @@ const ThemeRoutes = [
       { path: "/addUser", element: <AddUser /> },
       { path: "/addClass", element: <AddClass /> },
       { path: "/addStudent", element: <AddStudent /> },
+      { path: "/teacherList", exact: true, element: <PrivateRoute element={<TeacherList />} path="/teacherList" /> },
 
       { path: "/starter", exact: true, element: <PrivateRoute element={<Starter />} path="/starter" /> },
       { path: "/table", exact: true, element: <PrivateRoute element={<Tables />} path="/table" /> },
