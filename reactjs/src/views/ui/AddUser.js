@@ -117,7 +117,7 @@ import {
                     value={password} onChange={(e)=> setPassword(e.target.value)}
                   />
                 </FormGroup>
-                <FormGroup>
+                {/* <FormGroup>
                   <Label for="exampleSelect">Role</Label>
                   <select className='inputBox' value={role} onChange={(e) => setRole(e.target.value)}>
     <option  >--Select ROLE--</option>
@@ -126,10 +126,22 @@ import {
     <option value="admin">Admin</option>
     <option value="publisher">Publisher</option>
 </select>
-                </FormGroup>
+                </FormGroup> */}
+                <div className="input-group mb-3">
+  <div className="input-group-prepend">
+    <label className="input-group-text" htmlFor="inputGroupSelect01">Role</label>
+  </div>
+  <select className="custom-select" id="inputGroupSelect01"value={role} onChange={(e) => setRole(e.target.value)}>
+    <option  >--Select ROLE--</option>
+    <option value="User">User</option>
+    <option value="admin">Admin</option>
+    <option  value="publisher">Publisher</option>
+  </select>
+</div>
+
        
            
-                <button onClick={collectData} className='appButton' type='button'>Add user</button>
+                <button onClick={collectData} className="btn btn-success" type='button'>Add user</button>
 
               </Form>
             </CardBody>

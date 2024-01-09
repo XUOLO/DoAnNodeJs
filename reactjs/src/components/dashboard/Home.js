@@ -5,6 +5,8 @@ import { useParams,Link, useNavigate } from 'react-router-dom'
 const ProjectTables = () => {
 
   const [userName, setuserName] = useState('');
+  const [name, setName] = useState('');
+
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [error, setError] = useState('');
@@ -34,6 +36,7 @@ const ProjectTables = () => {
         const data = await result.json();
         setEmail(data.data.email);
         setuserName(data.data.userName);
+        setName(data.data.name);
         setRole(data.data.role);
       } else {
         const data = await result.json();
@@ -71,16 +74,39 @@ const ProjectTables = () => {
     return <h1>Error: {error}</h1>;
   }
   return (
-    <div className="profile">
-      <h1>User info</h1>
-      <p>Username: {userName}</p>
-      <p>Email: {email}</p>
-      <p>Role: {role}</p>
-      <div>
-    total user: {countUser}
-
+ 
+    <div className="row">
+    <div className="col-md-4">
+      <div className="profile">
+        <div className="card" style={{ width: '18rem' }}>
+          <img className="card-img-top" src="https://i.pinimg.com/564x/29/b8/d2/29b8d250380266eb04be05fe21ef19a7.jpg" alt="Card image cap" />
+          <div className="card-body">
+            <h5 className="card-title">User info</h5>
+            <p className="card-text">Name: {name}</p>
+            <p className="card-text">Email: {email}</p>
+            <p className="card-text">Role: {role}</p>
+          </div>
+        </div>
       </div>
     </div>
+    <div className="col-md-7">
+      <div className="card text-white bg-warning mb-3" style={{ maxWidth: '18rem' }}>
+        <div className="card-header">Total Users</div>
+        <div className="card-body">
+          <h5 className="card-title">{countUser}</h5>
+          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+      <div className="card text-white bg-primary mb-3" style={{ maxWidth: '18rem' }}>
+        <div className="card-header">Total Users</div>
+        <div className="card-body">
+          <h5 className="card-title">{countUser}</h5>
+          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
     
   );

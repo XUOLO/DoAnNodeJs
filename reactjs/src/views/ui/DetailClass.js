@@ -84,9 +84,12 @@ const ClassDetail = () => {
   if (roleLogin==='"admin"'||roleLogin==='"publisher"') {
     return (
       <>
-        <button onClick={() => deleteProduct(item._id)}>Delete</button>
-        <Link to={`/students/${item._id}`}>Update</Link>
+        <button className="btn btn-danger" style={{ color: 'white', textDecoration: 'underline' }}onClick={() => deleteProduct(item._id)}>Delete</button>
+        <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}}to={`/students/${item._id}`}>Update</Link>
       </>
+
+
+                 
     );
   } else {
     return <a>...</a> ;  
@@ -96,8 +99,7 @@ return (
     <div>
      
      <div>
-  hello publisher
-  </div>
+   </div>
       <div className="product-list">
 
    
@@ -106,9 +108,12 @@ return (
       <CardBody>
         <CardTitle tag="h5">      <h1>Student list of class {className}  </h1>
 </CardTitle>
-         <Link to="/addStudent" className="button-link-student">Add student</Link>
+         <Link to="/addStudent" className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }}>Add student</Link>
 
-        <input type="text" className="search-product-box" placeholder="Search student" onChange={searchHandle} />
+        <input type="text" className="search-product-box"
+                  placeholder="Search student"
+                
+                  style={{ border: '1px solid gray', borderRadius: '4px', padding: '5px', marginLeft: '10px' }}onChange={searchHandle} />
 
         <Table className="no-wrap mt-3 align-middle" responsive borderless>
           <thead>

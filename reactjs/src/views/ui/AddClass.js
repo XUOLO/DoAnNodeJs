@@ -106,7 +106,7 @@ import {
            
        
            
-                <button onClick={AddClassRoom} className='appButton' type='button'>Add class</button>
+                <button onClick={AddClassRoom} className="btn btn-success"type='button'>Add class</button>
 
               </Form>
             </CardBody>

@@ -29,14 +29,17 @@ const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const PrivateRoute = ({ element, path }) => {
   return isAuthenticated() ? element : <Navigate to="/logout" />;
 };
-
+const Logout = ( ) => {
+  localStorage.clear();
+  return  <Navigate to="/login" />;
+};
 const ThemeRoutes = [
   {
     path: "/",
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
-      { path: "/logout", element: <Login /> },
+      { path: "/logout", element: <Logout /> },
       { path: "/login", element: <Login /> },
       { path: "/users/:id", element: <UpdateUser /> },
       { path: "/class/:id", element: <UpdateClass /> },
