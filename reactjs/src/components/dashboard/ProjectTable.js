@@ -212,7 +212,7 @@ const ProjectTables = () => {
                           </td>
                           <td>
                             <button className="btn btn-danger" style={{ color: 'white', textDecoration: 'underline' }} onClick={() => deleteUser(item._id)}>Delete</button>
-                            <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}} to={`/users/${item._id}`}>Update</Link>
+                            <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline', marginLeft: '5px' }} to={`/users/${item._id}`}>Update</Link>
                           </td>
                         </tr>
                       ))) : (
@@ -243,11 +243,11 @@ const ProjectTables = () => {
             <Card>
               <CardBody>
                 <CardTitle tag="h5">Class List </CardTitle>
-                <Link to="/addClass"  className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }}>Add class</Link>
+                <Link to="/addClass" className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }}>Add class</Link>
 
-                <input type="text"className="search-product-box"
+                <input type="text" className="search-product-box"
                   placeholder="Search class"
-                
+
                   style={{ border: '1px solid gray', borderRadius: '4px', padding: '5px', marginLeft: '10px' }} onChange={searchClassHandle} />
 
                 <Table className="no-wrap mt-3 align-middle" responsive borderless>
@@ -278,12 +278,10 @@ const ProjectTables = () => {
                           <td>
                             {item.teacherName}
                           </td>
-                          <td> <button className="btn btn-danger" style={{ color: 'white', textDecoration: 'underline' }} onClick={() => deleteClassRoom(item._id)}>Delete</button> 
-                        
-
-                            <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}} to={`/class/${item._id}`}>Update</Link>
-                           
-                            <Link  className="btn btn-info"  style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}} to={`/class/detailClass/${item._id}`}>Class detail</Link>
+                          <td>
+                            <button className="btn btn-danger" style={{ color: 'white', textDecoration: 'underline' }} onClick={() => deleteClassRoom(item._id)}>Delete</button>
+                            <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline', marginLeft: '5px' }} to={`/class/${item._id}`}>Update</Link>
+                            <Link className="btn btn-info" style={{ color: 'white', textDecoration: 'underline', marginLeft: '5px' }} to={`/class/detailClass/${item._id}`}>Class detail</Link>
 
                           </td>
                         </tr>

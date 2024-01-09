@@ -12,7 +12,8 @@ const TeacherList = () => {
 
  
 
-  
+  const roleLogin = localStorage.getItem('role')
+
   const auth = localStorage.getItem('user')
   const token = JSON.parse(auth).data;
   useEffect(() => {
@@ -66,7 +67,7 @@ const TeacherList = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`, 
         },
       });
 
@@ -99,7 +100,13 @@ const TeacherList = () => {
     }
 
   }
-  
+  if (roleLogin === '"user"') {
+    return (
+      <div className="product">
+        <h1>Ban khong du quyen.</h1>
+      </div>
+    );
+  }
     return (
       <div>
 
@@ -149,8 +156,21 @@ const TeacherList = () => {
                             {item.email}
                           </td>
                           <td>
-                            {/* <button className="btn btn-danger" style={{ color: 'white', textDecoration: 'underline' }} onClick={() => deleteUser(item._id)}>Delete</button> */}
-                            <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}} to={`/users/${item._id}`}>Update</Link>
+                           
+
+                            {role === 'admin' ? (
+  <>
+     <button className="btn btn-danger" style={{ color: 'white', textDecoration: 'underline' }} onClick={() => deleteUser(item._id)}>Delete</button>
+     <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}} to={`/users/${item._id}`}>Update</Link>
+                          
+  </>
+) : role === 'publisher' ? (
+  <>
+         <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline' ,marginLeft:'5px'}} to={`/users/${item._id}`}>Update</Link>
+
+  </>
+) : <>...</>}
+
                           </td>
                         </tr>
                       ))) : (

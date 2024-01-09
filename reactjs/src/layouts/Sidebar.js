@@ -59,7 +59,19 @@ const Sidebar = () => {
               }
             >
               <i className="bi bi-layout-split"></i>
-              <span className="ms-3 d-inline-block">Table</span>
+              <span className="ms-3 d-inline-block">User list</span>
+            </Link>
+          </NavItem>
+          <NavItem className="sidenav-bg">
+            <Link
+              to={"/teacherList"}
+              className={
+                location.pathname === "/teacherList"
+                  ? "active nav-link py-3"
+                  : "nav-link text-secondary py-3"
+              }>
+              <i className="bi bi-layout-split"></i>
+              <span className="ms-3 d-inline-block">Teacher list</span>
             </Link>
           </NavItem>
         </Nav>

@@ -6,7 +6,8 @@ var responseData = require('../helper/responseData');
 var modelUser = require('../models/user')
 var validate = require('../validates/user')
 const {validationResult} = require('express-validator');
-var Schemauser = require('../schema/user')
+var Schemauser = require('../schema/user');
+ const { checkLogin, checkRoleAdmin, checkRegister } = require('../middlewares/protect');
 
 
 
@@ -27,6 +28,20 @@ router.get('/', async function (req, res, next) {
 
 });
 router.get('/teacherList', async function (req, res, next) {
+
+  var result = await checkLogin(req);
+  if(result.err){
+    responseData.responseReturn(res, 400, true, result.err);
+    return;
+  }
+  console.log(result+"haha");
+  req.userID = result;
+  next();
+},async function(req, res, next){
+   await checkRoleAdmin(req, res, next);
+}, async function (req, res, next) { 
+
+
   console.log(req.query);
   var usersAll = await Schemauser.find({role:"user"});
   responseData.responseReturn(res, 200, true, usersAll);
