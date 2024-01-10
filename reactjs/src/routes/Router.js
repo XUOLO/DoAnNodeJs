@@ -20,6 +20,7 @@ const UpdateStudent = lazy(() => import("../views/ui/UpdateStudent"));
 const UpdateClass = lazy(() => import("../views/ui/UpdateClass"));
 const ClassDetail = lazy(() => import("../views/ui/DetailClass"));
 const TeacherList = lazy(() => import("../views/ui/TeacherList"));
+const ListClassUser = lazy(() => import("../views/ui/ListClassUser"));
 
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 
@@ -46,6 +47,7 @@ const ThemeRoutes = [
       { path: "/class/:id", element: <UpdateClass /> },
       { path: "/students/:id", element: <UpdateStudent /> },
       { path: "/class/detailClass/:id", element: <ClassDetail /> },
+      { path: "/class/classUser/:id", element: <ListClassUser /> },
 
       { path: "/addUser", element: <AddUser /> },
       { path: "/addClass", element: <AddClass /> },

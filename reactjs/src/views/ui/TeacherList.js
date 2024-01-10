@@ -79,7 +79,8 @@ const TeacherList = () => {
 
 
       } else {
-        alert('Failed to get userList');
+        const data = await result.json();
+        // alert(data.data);
       }
     } catch (error) {
       console.error('Error:', error);

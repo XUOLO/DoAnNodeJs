@@ -8,15 +8,19 @@ const ProjectTables = () => {
   const [userName, setuserName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [role, setRole] = React.useState('');
+   const [detailClassUser, setDetailClassUser] = React.useState('');
+
   const [userList, setuserList] = React.useState('');
 
   const [classList, setclassList] = React.useState('');
+  const [userId, setuserId] = React.useState('');
 
 
 
   const params = useParams();
   const navigate = useNavigate()
   const roleLogin = localStorage.getItem('role')
+  const idUser = localStorage.getItem('userId')
 
   const auth = localStorage.getItem('user')
   const token = JSON.parse(auth).data;
@@ -24,9 +28,11 @@ const ProjectTables = () => {
     // if(!auth){
     //   navigate('/login')
     // }
+     
     getUserDetails();
     getListUser();
     getClassRoom();
+    getClassOfUser();
   }, [])
   const deleteUser = async (id) => {
     console.log(id)
@@ -57,7 +63,9 @@ const ProjectTables = () => {
 
 
       } else {
-        alert('Failed to get class list');
+        const data = await result.json();
+
+        // alert(data.data);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -77,11 +85,13 @@ const ProjectTables = () => {
       if (result.ok) {
 
         const data = await result.json();
-
-        setEmail(data.data.email);
+         setEmail(data.data.email);
         setuserName(data.data.userName);
-        setRole(data.data.role);
+        setuserId(data.data._id);
+         setRole(data.data.role);
         localStorage.setItem('role', JSON.stringify(data.data.role));
+        localStorage.setItem('userId', data.data._id);
+        // alert(data.data._id);
 
       } else {
         alert('Failed to get profile');
@@ -153,6 +163,39 @@ const ProjectTables = () => {
     }
 
   }
+ 
+  const getClassOfUser = async () => {
+    try {
+      const result = await fetch(`http://localhost:3000/class/classUser/${idUser}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (result.ok) {
+        const data = await result.json();
+        // alert(params.id)
+        // const productList = data.productList;
+        // alert(data.data);
+      
+        setDetailClassUser(data.data);
+        // localStorage.setItem('idClass', params.id);
+
+        // localStorage.setItem('userName', JSON.stringify(data)); 
+      } else {
+        const data = await result.json();
+
+        // alert('Failed to get class');
+        // alert(data.data)
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred');
+    }
+  };
+
+ 
   if (roleLogin === '"admin"') {
     return (
       <div>
@@ -230,7 +273,7 @@ const ProjectTables = () => {
 
     );
   }
-  if (roleLogin === '"publisher"' || roleLogin === '"user"') {
+  if (roleLogin === '"publisher"') {
     return (
       <div>
 

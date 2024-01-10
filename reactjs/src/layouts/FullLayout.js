@@ -1,15 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import SideBarPublisher from "./SideBarPublisher";
+import SidebarUser from "./SideBarUser";
 
- import Header from "./Header";
+import Header from "./Header";
 import { Container } from "reactstrap";
 import React, { useState, useEffect } from 'react'
 
 const FullLayout = () => {
-   const auth = localStorage.getItem('user')
+  const auth = localStorage.getItem('user')
   const token = JSON.parse(auth).data;
-  
+
   const roleLogin = localStorage.getItem('role');
 
   const [userName, setuserName] = React.useState('');
@@ -51,9 +52,13 @@ const FullLayout = () => {
       <div className="pageWrapper d-lg-flex">
         {/********Sidebar**********/}
         <aside className="sidebarArea shadow" id="sidebarArea">
-        
-        {role === "admin" ? <Sidebar  /> :  <SideBarPublisher />}
-
+          {role === "admin" ? (
+            <Sidebar />
+          ) : role === "publisher" ? (
+            <SideBarPublisher />
+          ) : (
+            <SidebarUser />
+          )}
         </aside>
         {/********Content Area**********/}
         <div className="contentArea">

@@ -29,13 +29,11 @@ const ObjectId = mongoose.Types.ObjectId;
 
 router.get('/:id', async function (req, res, next) {
   try {
-    const id = req.params.id;
-    const objectId = new ObjectId(id);
-
-    const student = await modelstudent.getOne(objectId);
+    
+    const student = await modelstudent.getOne(req.params.id);
     responseData.responseReturn(res, 200, true, student);
   } catch (error) {
-    responseData.responseReturn(res, 404, false, "Không tìm thấy sản phẩm");
+    responseData.responseReturn(res, 404, false, "Không tìm thấy sản student");
   }
 });
 router.post('/add',validate.validator(), 
@@ -50,7 +48,7 @@ router.post('/add',validate.validator(),
      req.userID = result;
     next();
   },async function(req, res, next){
-     await checkRoleAdmin(req, res, next); 
+     await checkRole(req, res, next); 
        
   },async function(req, res, next){
 

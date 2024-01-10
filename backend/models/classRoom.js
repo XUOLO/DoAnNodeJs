@@ -17,7 +17,7 @@ module.exports ={
         var limit = parseInt(query.limit)||2;
         var page = parseInt(query.page)||1;
         var skip = (page-1)*limit;
-        return SchemaclassRoom.find(Search).select('name teacherName ').sort(sort).skip(skip).exec();
+        return SchemaclassRoom.find(Search).select('name teacherName user_k').sort(sort).skip(skip).exec();
     },
     getOne:function(id){
         return SchemaclassRoom.findById(id);

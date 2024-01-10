@@ -22,7 +22,7 @@ router.get('/count', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
   console.log(req.query);
-  var usersAll = await modelUser.getall(req.query);
+  var usersAll = await Schemauser.find({});
   responseData.responseReturn(res, 200, true, usersAll);
  
 

@@ -40,10 +40,11 @@ const UpdateStudent = () => {
     const user = result.data;
 
     setName(user.name);
-    settest15(user.test15)
-    settest45(user.test45)
-    setterms(user.terms)
-    setAOS(user.AOS)
+    settest15(user.test15);
+    settest45(user.test45);
+    setterms(user.terms);
+    setGender(user.gender);
+    setAOS(user.AOS);
     setAge(user.age);
     settaddress(user.address);
 
@@ -116,31 +117,18 @@ const UpdateStudent = () => {
 
               </FormGroup>
               <FormGroup>
-                <Label for="gender">Gender</Label>
-                <div>
-                  <Label>
-                    <Input
-                      type="radio"
-                      name="gender"
-                      value="Male"
-                      checked={gender === 'Male'}
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                    Male
-                  </Label>
-
-                  <Label>
-                    <Input
-                      type="radio"
-                      name="gender"
-                      value="Female"
-                      checked={gender === 'Female'} style={{ marginLeft: '5px;' }}
-                      onChange={(e) => setGender(e.target.value)}
-                    />
-                    Female
-                  </Label>
-                </div>
-              </FormGroup>
+                <div className="input-group mb-3">
+  <div className="input-group-prepend">
+    <label className="input-group-text" htmlFor="inputGroupSelect01">Gender</label>
+  </div>
+  <select className="custom-select" id="inputGroupSelect01"value={gender} onChange={(e) => setGender(e.target.value)}>
+    <option  value={gender}>--SELECT GENDER--</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+   </select>
+</div>
+     
+                </FormGroup>
 
               <button onClick={updateUsers} className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline', marginLeft: '5px' }} type='button'>Update student</button>
 

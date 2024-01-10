@@ -21,8 +21,10 @@ const AddClass = () => {
 
   const [name, setName] = React.useState('');
 
-  const [teacherName, setteacherName] = React.useState('');
-  const [userList, setuserList] = React.useState('');
+  const [selectedTeacher, setSelectedTeacher] = React.useState({
+    name: '',
+    teacherID: ''
+  });  const [userList, setuserList] = React.useState('');
 
   const [error, setError] = React.useState(false);
   const auth = localStorage.getItem('user')
@@ -35,7 +37,7 @@ const AddClass = () => {
     // }
     let response = await fetch('http://localhost:3000/class/add', {
       method: 'post',
-      body: JSON.stringify({ name, teacherName }),
+    body: JSON.stringify({ name, teacherName: selectedTeacher.name, user_k: selectedTeacher.teacherID }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -83,7 +85,9 @@ const AddClass = () => {
 
 
       } else {
-        alert('Failed to get userList');
+        const data = await result.json();
+
+        // alert(data.data);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -124,29 +128,25 @@ const AddClass = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </FormGroup>
-              {/* <FormGroup>
-                  <Label for="exampleEmail">Teacher name</Label>
-                  <Input
-                    id="exampleEmail"
-                    name="name"
-                    placeholder="with a placeholder"
-                    type="text"
-                    value={teacherName}
-            onChange={(e) => setteacherName(e.target.value)}
-                  />
-                </FormGroup> */}
+         
               <FormGroup>
-                {userList.length > 0 ? (
-                  <select className="custom-select" id="inputGroupSelect01" value={teacherName} onChange={(e) => setteacherName(e.target.value)}>
-                    <option value="" disabled>--Select teacher--</option>
-                    {userList.map((item, index) => (
-                      <option key={index} value={item.name}>{item.name}</option>
-                    ))}
-                  </select>
-                ) : (
-                  <h1>No Result Found</h1>
-                )}
-              </FormGroup>
+            {userList.length > 0 ? (
+              <select className="custom-select" id="inputGroupSelect01" value={selectedTeacher.teacherID} onChange={(e) => {
+                  const selectedInfo = userList.find(user => user._id === e.target.value);
+                  setSelectedTeacher({
+                    name: selectedInfo.name,
+                    teacherID: selectedInfo._id
+                  });
+                }}>
+                <option value="" disabled>--Select teacher--</option>
+                {userList.map((item, index) => (
+                  <option key={item._id} value={item._id}>{item.name}</option>
+                ))}
+              </select>
+            ) : (
+              <h1>No Result Found</h1>
+            )}
+          </FormGroup>
 
 
               <button onClick={AddClassRoom} className="btn btn-success" type='button'>Add class</button>

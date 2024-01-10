@@ -94,7 +94,10 @@ const ClassDetail = () => {
 
       );
     } else {
-      return <a>...</a>;
+      return  <>
+       <Link className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline', marginLeft: '5px' }} to={`/students/${item._id}`}>Update</Link>
+    </>
+;
     }
   };
   return (

@@ -67,13 +67,13 @@ const AddStudent = () => {
     if (error) {
         return <h1>Error: {error}</h1>;
       }
-      if (roleLogin==='"user"') {
-        return (
-          <div className="product">
-            <h1>Ban khong du quyen.</h1>
-          </div>
-        );
-      }
+      // if (roleLogin==='"user"') {
+      //   return (
+      //     <div className="product">
+      //       <h1>Ban khong du quyen.</h1>
+      //     </div>
+      //   );
+      // }
        const handleImageUpload = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
@@ -131,30 +131,17 @@ const AddStudent = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="gender">Gender</Label>
-                  <div>
-                    <Label>
-                      <Input
-                        type="radio"
-                        name="gender"
-                        value="Male"
-                        checked={gender === 'Male'}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      Male
-                    </Label>
-
-                    <Label>
-                      <Input
-                        type="radio"
-                        name="gender"
-                        value="Female"
-                        checked={gender === 'Female'} style={{ marginLeft: '5px;' }}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                      Female
-                    </Label>
-                  </div>
+                <div className="input-group mb-3">
+  <div className="input-group-prepend">
+    <label className="input-group-text" htmlFor="inputGroupSelect01">Gender</label>
+  </div>
+  <select className="custom-select" id="inputGroupSelect01"value={gender} onChange={(e) => setGender(e.target.value)}>
+    <option  >--SELECT GENDER--</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+   </select>
+</div>
+     
                 </FormGroup>
      
            

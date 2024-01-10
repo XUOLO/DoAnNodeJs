@@ -32,8 +32,8 @@ router.get('/', async function (req, res, next) {
       //  var productsAll = await modelclassRoom.getall(req.query);
        
       // responseData.responseReturn(res, 200, true, productsAll);
-      var classRoomAll = await SchemaclassRoom.find({})
-      .populate({path:'student',select:'_id name age '});
+      var classRoomAll = await SchemaclassRoom.find({}) 
+      .populate({path:'student',select:'_id name  '});
       responseData.responseReturn(res, 200, true, classRoomAll);
    
     } catch (error) {
@@ -41,6 +41,10 @@ router.get('/', async function (req, res, next) {
     }
   
   });
+
+
+  
+
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -54,6 +58,18 @@ router.get('/:id', async function (req, res, next) {
     responseData.responseReturn(res, 404, false, "Không tìm thấy class");
   }
 });
+
+router.get('/classUser/:id', async function (req, res, next) {
+  try {
+     
+
+    const classRoom = await SchemaclassRoom.find({user_k:req.params.id});
+    responseData.responseReturn(res, 200, true, classRoom);
+  } catch (error) {
+    responseData.responseReturn(res, 404, false, "Không tìm thấy class");
+  }
+});
+
 
 router.get('/detailClass/:id', async function (req, res, next) {
   try {
@@ -81,7 +97,7 @@ router.post('/add',validate.validator(),
      req.userID = result;
     next();
   },async function(req, res, next){
-     await checkRoleAdmin(req, res, next); 
+     await checkRole(req, res, next); 
       
   },async function(req, res, next){
 
@@ -95,8 +111,7 @@ router.post('/add',validate.validator(),
     const newclassRoom = await modelclassRoom.createclassRoom({
       name: req.body.name,
       teacherName: req.body.teacherName,
-      
- 
+      user_k: req.body.user_k,
     })
     responseData.responseReturn(res, 200, true, newclassRoom);
   }
@@ -140,9 +155,27 @@ router.get('/search/:key', async (req, res) => {
     const result = await SchemaclassRoom.find({
       $or: [
         { name: { $regex: searchKey, $options: 'i' } },
-        { description: { $regex: searchKey, $options: 'i' } }
+        { teacherName: { $regex: searchKey, $options: 'i' } }
       ]
     });
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+router.get('/search/:user_k/:keyword', async (req, res) => {
+  try {
+    const user_k = req.params.user_k;
+    const keyword = req.params.keyword;
+    const result = await SchemaclassRoom.find({
+      user_k: user_k,
+      $or: [
+        { name: { $regex: keyword, $options: 'i' } },
+        { teacherName: { $regex: keyword, $options: 'i' } }
+      ]
+    }).populate('user_k').select('name teacherName'); 
+
     res.send(result);
   } catch (error) {
     res.status(500).send(error.message);
