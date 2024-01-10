@@ -29,10 +29,10 @@ const AddClass = () => {
 
   const token = JSON.parse(auth).data;
   const AddClassRoom = async () => {
-    if (!name || !teacherName) {
-      setError(true)
-      return false
-    }
+    // if (!name || !teacherName) {
+    //   setError(true)
+    //   return false
+    // }
     let response = await fetch('http://localhost:3000/class/add', {
       method: 'post',
       body: JSON.stringify({ name, teacherName }),
@@ -71,7 +71,7 @@ const AddClass = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`, 
         },
       });
 
@@ -101,7 +101,7 @@ const AddClass = () => {
     );
   }
 
-
+  if (roleLogin === '"admin"'||roleLogin==='"publisher"') {
   return (
     <Row>
       <Col>
@@ -157,6 +157,7 @@ const AddClass = () => {
       </Col>
     </Row>
   );
+   }
 };
 
 export default AddClass;
