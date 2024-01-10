@@ -74,6 +74,7 @@ router.post('/add',validate.validator(),
       email: req.body.email,
       name:req.body.name,
       password: req.body.password,
+ 
     })
     
     responseData.responseReturn(res, 200, true, newUser);

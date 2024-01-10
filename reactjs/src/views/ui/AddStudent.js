@@ -22,6 +22,7 @@ const AddStudent = () => {
     const [name, setName] = React.useState('');
     const [age, setAge] = React.useState('');
     const [image, setImage] = React.useState('');
+    const [gender, setGender] = React.useState('');
 
     const [address, settaddress] = React.useState('');
    
@@ -33,14 +34,13 @@ const AddStudent = () => {
 
     const token = JSON.parse(auth).data;
     const AddStudentToClass = async ()=>{
-        if(!name  ||!age ||!address   ){
-          // !image 
-            setError(true)
+        if(!name  ||!age ||!address ||!gender  ){
+             setError(true)
             return false
         }
            let response = await fetch('http://localhost:3000/students/add',{
             method:'post',
-            body:JSON.stringify({name,age,address ,image,class_k:idClass}),
+            body:JSON.stringify({name,age,address ,gender,class_k:idClass}),
             headers:{
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`, 
@@ -130,17 +130,35 @@ const AddStudent = () => {
                     onChange={(e) => settaddress(e.target.value)}
                     />
                 </FormGroup>
-                {/* <FormGroup>
-                <Label for=" ">Image</Label>
-                <Input
-                  placeholder="with a placeholder"
-                  type="file"
-                  onChange={handleImageUpload}
-                />
-              </FormGroup> */}
+                <FormGroup>
+                  <Label for="gender">Gender</Label>
+                  <div>
+                    <Label>
+                      <Input
+                        type="radio"
+                        name="gender"
+                        value="Male"
+                        checked={gender === 'Male'}
+                        onChange={(e) => setGender(e.target.value)}
+                      />
+                      Male
+                    </Label>
+
+                    <Label>
+                      <Input
+                        type="radio"
+                        name="gender"
+                        value="Female"
+                        checked={gender === 'Female'} style={{ marginLeft: '5px;' }}
+                        onChange={(e) => setGender(e.target.value)}
+                      />
+                      Female
+                    </Label>
+                  </div>
+                </FormGroup>
      
            
-                <button onClick={AddStudentToClass} className='appButton' type='button'>Add student</button>
+                <button onClick={AddStudentToClass} className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }} type='button'>Add student</button>
 
               </Form>
             </CardBody>

@@ -5,11 +5,16 @@ const schema = new mongoose.Schema({
     name: String,
     age: Number,
     address:String,
+    gender:String,
     class_k:{
         type:mongoose.Schema.ObjectId,
         ref:'classRoom'
     },
     image: String,
+    test15:Number,
+    test45:Number,
+    terms:Number,
+    AOS:Number,
 });
  
 

@@ -9,9 +9,10 @@ const options = {
   address: {
     min: 3,
     max: 200
-  }
+  },
+  gender:['Male','Female']
 };
-
+ 
 module.exports = {
   validator: function () {
     return [
@@ -35,7 +36,6 @@ module.exports = {
         .withMessage('Tuổi không được để trống')
         .isNumeric()
         .withMessage('Tuổi phải là một số'),
- 
 
     ];
   }

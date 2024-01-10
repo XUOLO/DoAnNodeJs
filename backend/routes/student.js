@@ -67,8 +67,7 @@ router.post('/add',validate.validator(),
       age: req.body.age,
       image: req.body.image,
       class_k:req.body.class_k,
-      
-
+    
     })
     responseData.responseReturn(res, 200, true, newstudent);
   }
