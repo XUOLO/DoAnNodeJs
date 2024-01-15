@@ -17,7 +17,7 @@ const SideBarPublisher = () => {
 
   return (
     <div>
-        hello pub
+        {/* hello pub */}
       <div className="d-flex align-items-center"></div>
       <div
         className="profilebg"

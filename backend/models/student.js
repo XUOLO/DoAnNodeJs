@@ -17,7 +17,7 @@ module.exports ={
         var limit = parseInt(query.limit)||2;
         var page = parseInt(query.page)||1;
         var skip = (page-1)*limit;
-        return Schemastudent.find(Search).select('name test15 test45 terms AOS gender age address image class_k').sort(sort).skip(skip).exec();
+        return Schemastudent.find(Search).select('name gender age address test15 test45 terms AOS image class_k').sort(sort).skip(skip).exec();
     },
     getOne:function(id){
         return Schemastudent.findById(id);

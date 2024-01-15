@@ -25,4 +25,4 @@ schema.virtual('classRoom', {
     justOne: true
   });
 
-module.exports = mongoose.model('student', schema);;
+module.exports = mongoose.model('student', schema);

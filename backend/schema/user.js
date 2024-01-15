@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const configs = require('../helper/configs')
-
+const crypto = require('crypto'); 
 const schema = new mongoose.Schema({
     email: String,
     userName: String,
@@ -13,6 +13,9 @@ const schema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'classRoom'
     },
+    avatar:String,
+    tokenForgot:String,
+    tokenForgotExp:String,
 });
 schema.virtual('classRoom', {
     ref: 'classRoom',
@@ -31,9 +34,15 @@ schema.methods.getJWT = function () {
         { expiresIn: configs.EXP });
     return token;
 }
+schema.methods.addTokenForgotPassword= function(){
+    var tokenForgot = crypto.randomBytes(31).toString('hex');
+    this.tokenForgot = tokenForgot;
+    this.tokenForgotExp = Date.now()+15*60*1000;
+    return tokenForgot;
+}
 schema.statics.checkLogin = async function (userName, password) {
     if (!userName || !password) {
-        return { err: 'Hay nhap day du username va password ' };
+        return { err: 'Hay nhap day du username va password' };
     }
     var user = await this.findOne({userName:userName});
     if (!user) {
@@ -43,9 +52,8 @@ schema.statics.checkLogin = async function (userName, password) {
     if (!result) {
         return { err: 'password sai' };
     }
-    console.log(user);
-    return user;
+     return user;
 }
 //JWT
 
-module.exports = mongoose.model('user', schema);;
+module.exports = mongoose.model('user', schema);

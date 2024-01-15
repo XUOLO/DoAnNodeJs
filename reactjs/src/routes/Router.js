@@ -9,6 +9,7 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 const Starter = lazy(() => import("../views/Starter.js"));
 const Tables = lazy(() => import("../views/ui/Tables"));
 const Login = lazy(() => import("../views/ui/Login"));
+const Card = lazy(() => import("../views/ui/Cards"));
 
 const Forms = lazy(() => import("../views/ui/Forms"));
 const AddUser = lazy(() => import("../views/ui/AddUser"));
@@ -58,6 +59,8 @@ const ThemeRoutes = [
       { path: "/table", exact: true, element: <PrivateRoute element={<Tables />} path="/table" /> },
       { path: "/forms", exact: true, element: <PrivateRoute element={<Forms />} path="/forms" /> },
       { path: "/breadcrumbs", exact: true, element: <PrivateRoute element={<Breadcrumbs />} path="/breadcrumbs" /> },
+      { path: "/card", exact: true, element: <PrivateRoute element={<Card />} path="/card" /> },
+
     ],
   },
 ];

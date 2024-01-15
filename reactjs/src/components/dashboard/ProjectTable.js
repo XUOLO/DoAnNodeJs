@@ -1,6 +1,7 @@
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+// const ExcelJS = require('exceljs');
 
 const ProjectTables = () => {
 
@@ -44,7 +45,8 @@ const ProjectTables = () => {
     if (result) {
       getListUser();
     }
-  }
+  };
+ 
   const getClassRoom = async () => {
     try {
       const result = await fetch('http://localhost:3000/class', {
@@ -101,6 +103,7 @@ const ProjectTables = () => {
       alert('An error occurred');
     }
   };
+ 
   const getListUser = async () => {
     try {
       const result = await fetch('http://localhost:3000/users', {
@@ -213,7 +216,7 @@ const ProjectTables = () => {
                 <Link to="/addUser" className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }}>
                   Add user
                 </Link>
-
+ 
                 <input
                   type="text"
                   className="search-product-box"

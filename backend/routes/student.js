@@ -65,7 +65,7 @@ router.post('/add',validate.validator(),
       age: req.body.age,
       image: req.body.image,
       class_k:req.body.class_k,
-    
+      gender:req.body.gender,
     })
     responseData.responseReturn(res, 200, true, newstudent);
   }
@@ -101,7 +101,20 @@ router.delete('/delete/:id', async function (req, res, next) {
   }
 });
 
-
+router.get('/search/:key', async (req, res) => {
+  try {
+    const searchKey = req.params.key;
+    const result = await Schemastudent.find({
+      $or: [
+        { name: { $regex: searchKey, $options: 'i' } },
+        { address: { $regex: searchKey, $options: 'i' } }
+      ]
+    });
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 router.get('/search/:class_k/:keyword', async (req, res) => {
   try {

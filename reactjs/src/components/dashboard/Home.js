@@ -90,7 +90,7 @@ const ProjectTables = () => {
       </div>
     </div>
     <div className="col-md-7">
-      <div className="card text-white bg-warning mb-3" style={{ maxWidth: '18rem' }}>
+      {/* <div className="card text-white bg-warning mb-3" style={{ maxWidth: '18rem' }}>
         <div className="card-header">Total Users</div>
         <div className="card-body">
           <h5 className="card-title">{countUser}</h5>
@@ -103,7 +103,7 @@ const ProjectTables = () => {
           <h5 className="card-title">{countUser}</h5>
           <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
-      </div>
+      </div> */}
 
     </div>
   </div>

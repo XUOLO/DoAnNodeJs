@@ -8,6 +8,7 @@ var validate = require('../validates/user')
 const {validationResult} = require('express-validator');
 var Schemauser = require('../schema/user');
  const { checkLogin, checkRoleAdmin, checkRegister } = require('../middlewares/protect');
+ const ExcelJS = require('exceljs');
 
 
 
@@ -27,6 +28,7 @@ router.get('/', async function (req, res, next) {
  
 
 });
+ 
 router.get('/teacherList', async function (req, res, next) {
 
   var result = await checkLogin(req);
@@ -74,7 +76,7 @@ router.post('/add',validate.validator(),
       email: req.body.email,
       name:req.body.name,
       password: req.body.password,
- 
+      avatar:req.body.avatar,
     })
     
     responseData.responseReturn(res, 200, true, newUser);

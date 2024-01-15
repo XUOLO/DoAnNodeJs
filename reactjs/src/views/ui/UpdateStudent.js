@@ -121,7 +121,7 @@ const UpdateStudent = () => {
   <div className="input-group-prepend">
     <label className="input-group-text" htmlFor="inputGroupSelect01">Gender</label>
   </div>
-  <select className="custom-select" id="inputGroupSelect01"value={gender} onChange={(e) => setGender(e.target.value)}>
+  <select className="custom-select" id="inputGroupSelect01" onChange={(e) => setGender(e.target.value)}>
     <option  value={gender}>--SELECT GENDER--</option>
     <option value="Male">Male</option>
     <option value="Female">Female</option>

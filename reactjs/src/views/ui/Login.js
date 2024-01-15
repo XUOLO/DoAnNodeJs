@@ -27,6 +27,7 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
       });
+   
       const data = await result.json(); 
       if (result.ok) {
         if(data.sucess===true){
@@ -47,16 +48,33 @@ const Login = () => {
     }
   };
   return (
-    <div className='login'>
-        <h1>Login</h1>
-        {error && <p className="error">{error}</p>}
+    <div className='login' style={{ height:'1030px', margin: '0 auto', padding: '20px',backgroundColor: 'rgb(129 243 226)'}}>
 
-        <input type="text" className='inputBox' placeholder='Enter Email' 
-        onChange={(e)=> setuserName(e.target.value)} value={userName}/>
-        <input type="password" className='inputBox' placeholder='Enter Password' 
-        onChange={(e)=> setPassword(e.target.value)} value={password}/>
-        <button onClick={handleLogin} type='button' className='appButton'>Login</button>
+ 
+    <h1 style={{ textAlign: 'center' ,fontSize:'65px'}}>Student Management System</h1>
+    
+    <div className='formLogin' style={{ marginTop:'170px', marginLeft: '35%' }}> 
+          <div>
+          {error && <p className="error" style={{ color: 'red' }}>{error}</p>}
+
+      <label htmlFor="email" style={{ display: 'block', marginBottom: '10px'  }}>Email:</label>
+      <input type="text" id="email" className='inputBox'required placeholder='Enter username' style={{ display: 'block', width: '50%', padding: '10px' }} 
+        onChange={(e) => setuserName(e.target.value)} value={userName} />
     </div>
+    <div>
+      <label htmlFor="password" style={{ display: 'block', marginBottom: '10px' }}>Password:</label>
+      <input type="password" id="password" className='inputBox' placeholder='Enter Password' style={{ display: 'block', width: '50%', padding: '10px' }} 
+        onChange={(e) => setPassword(e.target.value)} value={password} />
+    </div>
+    <div>
+      <button onClick={handleLogin} type='button' className='appButton' style={{ backgroundColor: 'blue', color: 'white',marginTop: '10px'}}>
+      Login
+    </button>
+    </div>
+    </div>
+ 
+    
+  </div>
   )
 }
 

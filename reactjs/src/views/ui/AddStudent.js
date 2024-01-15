@@ -11,7 +11,7 @@ import {
     Input,
     FormText,
   } from "reactstrap";
-  import React,{useEffect, useState} from 'react'
+  import React,{useEffect, useRef, useState} from 'react'
   import { useNavigate } from 'react-router-dom';
 
  
@@ -27,12 +27,11 @@ const AddStudent = () => {
     const [address, settaddress] = React.useState('');
    
     const [error, setError] = React.useState(false);
-    const [selectedFile, setSelectedFile] = React.useState('');
-
+    const [file, setFile] = React.useState(null);
+    const inputRef=useRef();
     const auth = localStorage.getItem('user')
     const idClass = localStorage.getItem('idClass')
-
-    const token = JSON.parse(auth).data;
+     const token = JSON.parse(auth).data;
     const AddStudentToClass = async ()=>{
         if(!name  ||!age ||!address ||!gender  ){
              setError(true)
@@ -40,7 +39,7 @@ const AddStudent = () => {
         }
            let response = await fetch('http://localhost:3000/students/add',{
             method:'post',
-            body:JSON.stringify({name,age,address ,gender,class_k:idClass}),
+            body:JSON.stringify({name,age,address ,image,gender,class_k:idClass}),
             headers:{
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`, 
@@ -74,18 +73,7 @@ const AddStudent = () => {
       //     </div>
       //   );
       // }
-       const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
     
-        reader.onloadend = () => {
-          setSelectedFile(reader.result);
-        };
-    
-        if (file) {
-          reader.readAsDataURL(file);
-        }
-      };
     return (
       <Row>
         <Col>
@@ -143,7 +131,11 @@ const AddStudent = () => {
 </div>
      
                 </FormGroup>
-     
+                <FormGroup>
+      <Label for=" ">Image</Label>
+      <Input type="file"   value={image} onChange={(e) => setImage(e.target.value)} />
+    </FormGroup>
+
            
                 <button onClick={AddStudentToClass} className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }} type='button'>Add student</button>
 

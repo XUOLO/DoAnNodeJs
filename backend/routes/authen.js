@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const configs = require('../helper/configs');
 const { checkLogin, checkRole, checkRegister } = require('../middlewares/protect');
+const sendmail = require('../helper/sendmail');
 
 const { createServer } = require('node:http');
 const { join } = require('node:path');
@@ -26,23 +27,21 @@ router.post('/register', validate.validator(),
     await checkRegister(req, res, next);
 
   });
-router.post('/login', async function (req, res, next) {
-  var result = await modelUser.login(req.body.userName, req.body.password);
-
-  if(result.err){
-    responseData.responseReturn(res, 400, false, result.err);
-    return;
-  } 
-  console.log(result);
-  var token = result.getJWT();
-  res.cookie('tokenJWT',token,{
-     expires: new Date(Date.now() + 2*24*3600*1000 ),
-
-    httpOnly:true
+  router.post('/login', async function (req, res, next) {
+    var result = await modelUser.login(req.body.userName, req.body.password);
+    if(result.err){
+      responseData.responseReturn(res, 400, true, result.err);
+      return;
+    }
+    console.log(result);
+    var token = result.getJWT();
+    res.cookie('tokenJWT',token,{
+      expires:new Date(Date.now()+2*24*3600*1000),
+      httpOnly:true
+    });
+    responseData.responseReturn(res, 200, true, token);
   });
-  responseData.responseReturn(res, 200, true, token);
-
-});
+  
 
 router.get('/logout', async function(req, res, next){
   res.cookie('tokenJWT','none',{
@@ -75,7 +74,7 @@ router.post('/forgetPassword', async function(req, res, next){
   var email = req.body.email;
   var user = await modelUser.getByEmail(email);
   if(!user){
-    return ;//return loi
+    console.log("loi");//return loi
   }
   console.log(user);
   user.addTokenForgotPassword();
@@ -95,10 +94,14 @@ router.post('/resetPassword/:token', async function(req, res, next){
    var token = req.params.token;
    var password = req.body.password;
    var user = await modelUser.getByTokenForgot(token);
+   console.log(password)
+   console.log(user)
+ 
    user.password = password;
    user.tokenForgot = undefined;
    user.tokenForgotExp = undefined;
    await user.save();
+  return;
 })
 
 module.exports = router;

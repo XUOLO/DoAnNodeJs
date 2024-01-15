@@ -114,7 +114,7 @@ const ListClassUser = () => {
           <div>
             <Card>
               <CardBody>
-                <CardTitle tag="h5">Class List </CardTitle>
+                <CardTitle tag="h5" > <b>Class List</b> </CardTitle>
                 {/* <Link to="/addClass" className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }}>Add class</Link> */}
 
                 <input type="text" className="search-product-box"

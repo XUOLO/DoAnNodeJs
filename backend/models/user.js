@@ -17,14 +17,14 @@ module.exports ={
         var limit = parseInt(query.limit)||2;
         var page = parseInt(query.page)||1;
         var skip = (page-1)*limit;
-        return SchemaUser.find(Search).select('userName name password email role').sort(sort).skip(skip).exec();
+        return SchemaUser.find(Search).select('userName name password avatar email role').sort(sort).skip(skip).exec();
     },
     getOne:function(id){
         return SchemaUser.findById(id);
     },
     getByName:function (name){
         return SchemaUser.findOne({userName:name}).exec();
-    },
+    }, 
     createUser:function(user){
         return new SchemaUser(user).save();
     },
@@ -35,5 +35,15 @@ module.exports ={
         return SchemaUser.findOneAndDelete({ _id: id }).exec();
       },findByIdAndUpdate: function (id, updateData) {
         return SchemaUser.findOneAndUpdate({ _id: id }, updateData, { new: true }).exec();
+    }, getByEmail: function (email) {
+        return SchemaUser.findOne({ email: email }).exec();
+    },
+    getByTokenForgot: function (token) {
+        return SchemaUser.findOne(
+            {
+                tokenForgot: token,
+                tokenForgotExp: { $gte: Date.now() }
+            }
+        ).exec();
     },
 }

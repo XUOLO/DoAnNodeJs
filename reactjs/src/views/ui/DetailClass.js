@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Card, CardBody, CardTitle, Table } from "reactstrap";
+import * as XLSX from 'xlsx';
+import ReactPaginate from 'react-paginate';
 
 const ClassDetail = () => {
   const [detailClass, setdetailClass] = useState([]);
@@ -10,6 +12,7 @@ const ClassDetail = () => {
   const userName = localStorage.getItem('userName')
   const classId = localStorage.getItem('classId')
   const [className, setclassName] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const token = JSON.parse(auth).data;
   const params = useParams();
@@ -17,10 +20,24 @@ const ClassDetail = () => {
 
   useEffect(() => {
 
-    getProducts();
+    getStudents();
 
   }, [])
-  const getProducts = async () => {
+  useEffect(() => {
+
+    setPageNumber(0);
+
+  }, [detailClass])
+  const studentsPerPage = 5;
+  const pageCount = Math.ceil(detailClass.length / studentsPerPage);
+
+  // Lấy danh sách sinh viên cho trang hiện tại
+  const studentsOnPage = detailClass.slice(pageNumber * studentsPerPage, (pageNumber + 1) * studentsPerPage);
+  const handlePageClick = (data) => {
+    const selectedPage = data.selected;
+    setPageNumber(selectedPage);
+  };
+  const getStudents = async () => {
     try {
       const result = await fetch(`http://localhost:3000/class/detailClass/${params.id}`, {
         method: 'GET',
@@ -31,9 +48,7 @@ const ClassDetail = () => {
 
       if (result.ok) {
         const data = await result.json();
-        // alert(params.id)
-        // const productList = data.productList;
-        // alert(data.data);
+         
         console.log(result);
         setclassName(data.data.name);
         setdetailClass(data.data.student);
@@ -57,13 +72,10 @@ const ClassDetail = () => {
     })
     result = await result.json();
     if (result) {
-      getProducts();
+      getStudents();
     }
   }
-  const convertBinaryToURL = (binaryData) => {
-    const base64String = binaryData.buffer.toString('base64');
-    return `data:image/png;base64,${base64String}`;
-  };
+ 
   const searchHandle = async (e) => {
     let key = e.target.value
     if (key) {
@@ -75,7 +87,7 @@ const ClassDetail = () => {
         setdetailClass(result)
       }
     } else {
-      getProducts()
+      getStudents()
     }
 
   }
@@ -100,6 +112,15 @@ const ClassDetail = () => {
 ;
     }
   };
+
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(detailClass);
+ 
+    const workbook = XLSX.utils.book_new();
+    
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Student List');
+    XLSX.writeFile(workbook, 'student_list_class_'+className+'.xlsx');
+  };
   return (
     <div>
 
@@ -114,7 +135,7 @@ const ClassDetail = () => {
               <CardTitle tag="h5">      <h1>Student list of class {className}  </h1>
               </CardTitle>
               <Link to="/addStudent" className="btn btn-success" style={{ color: 'white', textDecoration: 'underline' }}>Add student</Link>
-
+              <button className="btn btn-primary" style={{ color: 'white', textDecoration: 'underline', marginLeft: '5px' }} onClick={exportToExcel}>Export Excel</button>
               <input type="text" className="search-product-box"
                 placeholder="Search student"
 
@@ -132,11 +153,12 @@ const ClassDetail = () => {
                     <th>Address</th>
 
                     <th>Options</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {detailClass.length > 0 ? (
-                    detailClass.map((item, index) => (
+                  {studentsOnPage.length > 0 ? (
+                    studentsOnPage.map((item, index) => (
                       <tr key={item._id} className="border-top">
                         <td>
                           <div className="d-flex align-items-center p-2">
@@ -148,8 +170,7 @@ const ClassDetail = () => {
                           </div>
                         </td>
                         <td>{item.name}</td>
-                        {/* <td>       <img src="https://images.freeimages.com/fic/images/icons/977/rrze/720/user_student.png?fmt=webp&w=500" width="50" className="rounded-circle" />   </td> */}
-                        <td>
+                         <td>
                           {item.age}
                         </td>
                         <td>
@@ -169,17 +190,42 @@ const ClassDetail = () => {
                             />
                           )}
                         </td>
-                        <td>
+                         <td>
                           {item.address}
                         </td>
                         <td>   {renderOperationButtons(item)}</td>
-
+<td><img scr={item.image}></img> </td>
                       </tr>
                     ))) : (
                     <h1>No student found</h1>
                   )}
                 </tbody>
               </Table>
+              <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        activeClassName={'active'}
+        style={{
+        
+          display: 'flex',
+          justifyContent: 'center',
+
+        }}
+        pageLinkClassName={'page-link'}
+        activeLinkClassName={'active-link'}
+        previousLinkClassName={'previous-link'}
+        nextLinkClassName={'next-link'}
+        breakLinkClassName={'break-link'}
+      
+      />
             </CardBody>
           </Card>
         </div>

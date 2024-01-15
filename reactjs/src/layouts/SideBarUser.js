@@ -71,7 +71,7 @@ const SidebarUser = () => {
   };
   return (
     <div>
-        hello TEACHER
+        {/* hello TEACHER */}
       <div className="d-flex align-items-center"></div>
       <div
         className="profilebg"
