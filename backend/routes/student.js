@@ -66,6 +66,8 @@ router.post('/add',validate.validator(),
       image: req.body.image,
       class_k:req.body.class_k,
       gender:req.body.gender,
+      phone:req.body.phone,
+      parentName:req.body.parentName,
     })
     responseData.responseReturn(res, 200, true, newstudent);
   }

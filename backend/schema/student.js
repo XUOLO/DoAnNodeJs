@@ -10,6 +10,8 @@ const schema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'classRoom'
     },
+    phone:Number,
+    parentName:String,
     image: String,
     test15:Number,
     test45:Number,

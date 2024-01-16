@@ -23,6 +23,8 @@ const AddStudent = () => {
     const [age, setAge] = React.useState('');
     const [image, setImage] = React.useState('');
     const [gender, setGender] = React.useState('');
+    const [phone, setPhone] = React.useState('');
+    const [parentName, setParentName] = React.useState('');
 
     const [address, settaddress] = React.useState('');
    
@@ -105,6 +107,28 @@ const AddStudent = () => {
                     type="text"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for=" ">Phone</Label>
+                  <Input
+                    id=" "
+                    name="phone"
+                    placeholder="with a placeholder"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for=" ">Parent name</Label>
+                  <Input
+                    id=" "
+                    name=""
+                    placeholder="with a placeholder"
+                    type="text"
+                    value={parentName}
+                    onChange={(e) => setParentName(e.target.value)}
                   />
                 </FormGroup>
                 <FormGroup>

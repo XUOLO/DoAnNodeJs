@@ -23,6 +23,8 @@ const UpdateStudent = () => {
   const [test45, settest45] = React.useState('');
   const [terms, setterms] = React.useState('');
   const [AOS, setAOS] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [parentName, setParentName] = React.useState('');
 
   const idClass = localStorage.getItem('idClass')
 
@@ -46,6 +48,8 @@ const UpdateStudent = () => {
     setGender(user.gender);
     setAOS(user.AOS);
     setAge(user.age);
+    setPhone(user.phone);
+    setParentName(user.parentName);
     settaddress(user.address);
 
   }
@@ -55,7 +59,7 @@ const UpdateStudent = () => {
 
       let result = await fetch(`http://localhost:3000/students/edit/${params.id}`, {
         method: 'Put',
-        body: JSON.stringify({ name, age, address, gender, test15, test45, terms, AOS }),
+        body: JSON.stringify({ name, age, address, gender,phone,parentName, test15, test45, terms, AOS }),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -107,6 +111,28 @@ const UpdateStudent = () => {
 
               </FormGroup>
               <FormGroup>
+                  <Label for=" ">Phone</Label>
+                  <Input
+                    id=" "
+                    name="phone"
+                    placeholder="with a placeholder"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for=" ">Parent name</Label>
+                  <Input
+                    id=" "
+                    name=""
+                    placeholder="with a placeholder"
+                    type="text"
+                    value={parentName}
+                    onChange={(e) => setParentName(e.target.value)}
+                  />
+                </FormGroup>
+              <FormGroup>
                 <Label for="exampleEmail">Address</Label>
                 <Input
                   id="exampleEmail"
@@ -135,10 +161,10 @@ const UpdateStudent = () => {
             </Form>
           </CardBody>
         </Card>
+        <h1>Learning outcomes</h1>
         <table style={{ border: '1px solid black', width: '100%' }}>
           <thead>
             <tr>
-
               <th style={{ border: '1px solid black', padding: '8px' }}>Test 15'</th>
               <th style={{ border: '1px solid black', padding: '8px' }}>Test 45'</th>
               <th style={{ border: '1px solid black', padding: '8px' }}>Terms</th>

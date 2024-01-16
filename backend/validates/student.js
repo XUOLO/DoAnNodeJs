@@ -4,7 +4,11 @@ const message = require('../helper/message');
 const options = {
   name: {
     min: 3,
-    max: 15
+    max: 20
+  },
+  parentName: {
+    min: 3,
+    max: 20
   },
   address: {
     min: 3,
@@ -22,6 +26,12 @@ module.exports = {
         .withMessage('Tên không được để trống')
         .isLength({ min: options.name.min, max: options.name.max })
         .withMessage(`Tên phải có độ dài từ ${options.name.min} đến ${options.name.max} ký tự`),
+        body('parentName')
+        .trim()
+        .notEmpty()
+        .withMessage('Tên phụ huynh không được để trống')
+        .isLength({ min: options.parentName.min, max: options.parentName.max })
+        .withMessage(`Tên phụ huynh phải có độ dài từ ${options.parentName.min} đến ${options.parentName.max} ký tự`),
 
       body('address')
         .trim()
@@ -37,6 +47,13 @@ module.exports = {
         .isNumeric()
         .withMessage('Tuổi phải là một số'),
 
+        body('phone')
+        .trim()
+        .notEmpty()
+        .withMessage('Tuổi không được để trống')
+        .isNumeric()
+        .withMessage('Tuổi phải là một số'),
+        
     ];
   }
 };
